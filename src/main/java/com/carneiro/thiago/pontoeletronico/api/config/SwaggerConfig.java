@@ -40,7 +40,7 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Ponto Inteligente API")
-				.description("Documentação da API de acesso aos endpoints do Ponto Inteligente.").version("1.0")
+				.description("Documentação da API de acesso aos endpoints do Ponto Eletronico.").version("1.0")
 				.build();
 	}
 
