@@ -1,7 +1,8 @@
 package com.carneiro.thiago.pontoeletronico.api.services.impl;
 
-import java.util.Optional;
-
+import com.carneiro.thiago.pontoeletronico.api.entities.Lancamento;
+import com.carneiro.thiago.pontoeletronico.api.repositories.LancamentoRepository;
+import com.carneiro.thiago.pontoeletronico.api.services.LancamentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.carneiro.thiago.pontoeletronico.api.entities.Lancamento;
-import com.carneiro.thiago.pontoeletronico.api.repositories.LancamentoRepository;
-import com.carneiro.thiago.pontoeletronico.api.services.LancamentoService;
+import java.util.Optional;
 
 @Service
 public class LancamentoServiceImpl implements LancamentoService {
@@ -28,7 +27,7 @@ public class LancamentoServiceImpl implements LancamentoService {
 		return this.lancamentoRepository.findByFuncionarioId(funcionarioId, pageRequest);
 	}
 	
-	@Cacheable("lancamentoPorId")
+	@Cacheable(value = "lancamentoPorId")
 	public Optional<Lancamento> buscarPorId(Long id) {
 		log.info("Buscando um lançamento pelo ID [{}]", id);
 		return this.lancamentoRepository.findById(id);
