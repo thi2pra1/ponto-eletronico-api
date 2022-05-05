@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ponto-eletronico-api
+  description: Este serviço simula um sistema de ponto eletronico
+  tags:
+    - java
+    - backend
+spec:
+  type: service
+  lifecycle: production
+  owner: team-a
