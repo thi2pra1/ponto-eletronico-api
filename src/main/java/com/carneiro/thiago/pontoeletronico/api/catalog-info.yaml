@@ -3,6 +3,10 @@ kind: Component
 metadata:
   name: ponto-eletronico-api
   description: Este serviço simula um sistema de ponto eletronico
+  links:
+    -url: https://github.com/swagger-ui.html#/
+     title: Swagger
+     icon: github
   tags:
     - java
     - backend
