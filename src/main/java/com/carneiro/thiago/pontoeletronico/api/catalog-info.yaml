@@ -5,7 +5,7 @@ metadata:
   description: Este serviço simula um sistema de ponto eletronico
   links:
     - url: https://github.com/thi2pra1/ponto-eletronico-api
-      title: GitHub Repo
+      title: GitHub Repositorio
       icon: github
   tags:
     - java
