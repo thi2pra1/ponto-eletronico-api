@@ -12,6 +12,7 @@ metadata:
     - backend
   annotations:
     github.com/project-slug: value
+    backstage.io/techdocs-ref: value
 spec:
   type: service
   lifecycle: production
