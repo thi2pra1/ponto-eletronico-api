@@ -10,6 +10,8 @@ metadata:
   tags:
     - java
     - backend
+  annotations:
+    github.com/project-slug: value
 spec:
   type: service
   lifecycle: production
