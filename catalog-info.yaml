@@ -11,9 +11,21 @@ metadata:
     - java
     - backend
   annotations:
-    github.com/project-slug: value
-    backstage.io/techdocs-ref: value
+    github.com/project-slug: thi2pra1/ ponto-eletronico-api
 spec:
   type: service
   lifecycle: production
   owner: team-a
+
+---
+
+metadata:
+  name: "techdocs-exemplo"
+  description: "exemplo de tech docs"
+  annotations:
+    github.com/project-slug: thi2pra1/ ponto-eletronico-api
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: documentation
+  lifecycle: experimental
+  owner: "team-a"
