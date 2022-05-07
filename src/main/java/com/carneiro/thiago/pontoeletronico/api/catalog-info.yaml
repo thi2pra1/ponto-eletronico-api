@@ -12,7 +12,7 @@ metadata:
     - backend
   annotations:
     github.com/project-slug: https://github.com/thi2pra1/ponto-eletronico-api
-    backstage.io/techdocs-ref: https://github.com/thi2pra1/-ponto-eletronico-api
+    backstage.io/techdocs-ref: https://github.com/thi2pra1/-ponto-eletronico-api/blob/master/catalog-info.yaml
 spec:
   type: service
   lifecycle: production
