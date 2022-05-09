@@ -17,3 +17,20 @@ spec:
   type: service
   lifecycle: production
   owner: team-a
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  title: ponto-eletronico-api
+  name: ponto-eletronico-api
+  description: Este serviço simula um sistema de ponto eletronico
+  tags:
+    - stable
+spec:
+  type: openapi
+  lifecycle: production
+  owner: team-a
+  system: sample-system
+  definition:
+    $text: https://github.com/thi2pra1/ponto-eletronico-api/blob/master/api-spec.yaml
