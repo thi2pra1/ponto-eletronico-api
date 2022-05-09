@@ -11,7 +11,7 @@ metadata:
     - java
     - backend
   annotations:
-    github.com/project-slug: thi2pra1/ ponto-eletronico-api
+    github.com/project-slug: thi2pra1/ponto-eletronico-api
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
