@@ -1,26 +1,33 @@
 openapi: "3.0.3"
 info:
-  title: The Sample Service API
+  title: ponto-eletronico-api
   version: 0.0.1
-  description: Send errors to Rollbar or Sentry
+  description: Este serviço simula um sistema de ponto eletronico
 
 servers:
-  - url: https://sample-service.backstage-demo.roadie.io
-    description: A plublic instance which anyone can hit to generate sample data.
+  - url: http://localhost:8080/swagger-ui.html#
+    description: Caso o projeto esteja rodando localmente você conseguirá consultar este swagger no endereço acima.
 
 paths:
-  /:
-    get:
-      summary: Return Hello World
+  /api/cadastrar-pf:
+    post:
+      summary: cadastrar uma pessoa física
+      requestBody:
+        description: informações para cadastro da pessoa física
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
       responses:
-        '200':
-          description: A JSON object with a message key and Hello World value.
+        '201':
+          description: mensagem 201 created
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: Hello world!
+                  message: created
 
   /debug-sentry:
     post:
