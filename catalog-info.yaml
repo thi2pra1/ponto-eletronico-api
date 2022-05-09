@@ -22,8 +22,8 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  title: swagger-ponto-eletronico-api
-  name: swagger-ponto-eletronico-api
+  title: ponto-eletronico-api
+  name: ponto-eletronico-api
   description: Este serviço simula um sistema de ponto eletronico
   tags:
     - stable
