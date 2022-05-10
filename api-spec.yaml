@@ -1,78 +1,466 @@
 openapi: "3.0.3"
 info:
-  title: ponto-eletronico-api
-  version: 0.0.1
-  description: Este serviço simula um sistema de ponto eletronico
-
-servers:
-  - url: http://localhost:8080/swagger-ui.html#
-    description: Caso o projeto esteja rodando localmente você conseguirá consultar este swagger no endereço acima.
-
+  description: Documentação da API de acesso aos endpoints do Ponto Eletronico.
+  version: '1.0'
+  title: Ponto Inteligente API
+host: localhost:8090
+basePath: /
+tags:
+  - name: cadastro-pf-controller
+    description: Cadastro PF Controller
+  - name: lancamento-controller
+    description: Lancamento Controller
+  - name: cadastro-pj-controller
+    description: Cadastro PJ Controller
+  - name: funcionario-controller
+    description: Funcionario Controller
+  - name: empresa-controller
+    description: Empresa Controller
 paths:
   /api/cadastrar-pf:
     post:
-      summary: cadastrar uma pessoa física
-      requestBody:
-        description: informações para cadastro da pessoa física
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-      responses:
-        '201':
-          description: mensagem 201 created
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: created
-
-  /debug-sentry:
-    post:
-      summary: Send an error to Sentry
-
-      requestBody:
-        description: Optional error text to send to Sentry.
-        required: false
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              errorMessage: My first Sentry Error
-
+      tags:
+        - cadastro-pf-controller
+      summary: cadastrar
+      operationId: cadastrarUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: cadastroPFDto
+          description: cadastroPFDto
+          required: true
+          schema:
+            $ref: '#/definitions/CadastroPFDto'
       responses:
         '200':
-          description: Confirmation that the error was sent.
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Error sent to Sentry: "My first error"'
-
-  /debug-rollbar:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfCadastroPFDto'
+  /api/cadastrar-pj:
     post:
-      summary: Send an error to Rollbar
-
-      requestBody:
-        description: Optional error text to send to Rollbar.
-        required: false
-        content:
-          application/json:
-            schema:
-              type: object
-            example:
-              errorMessage: My first Rollbar Error
-
+      tags:
+        - cadastro-pj-controller
+      summary: cadastrar
+      operationId: cadastrarUsingPOST_1
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: cadastroPJDto
+          description: cadastroPJDto
+          required: true
+          schema:
+            $ref: '#/definitions/CadastroPJDto'
       responses:
         '200':
-          description: Confirmation that the error was sent.
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Error sent to Rollbar: "My first error"'
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfCadastroPJDto'
+  /api/empresas/cnpj/{cnpj}:
+    get:
+      tags:
+        - empresa-controller
+      summary: buscarPorCnpj
+      operationId: buscarPorCnpjUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: cnpj
+          in: path
+          description: cnpj
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfEmpresaDto'
+  /api/funcionarios/{id}:
+    put:
+      tags:
+        - funcionario-controller
+      summary: atualizar
+      operationId: atualizarUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: funcionarioDto
+          description: funcionarioDto
+          required: true
+          schema:
+            $ref: '#/definitions/FuncionarioDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfFuncionarioDto'
+  /api/lancamentos:
+    post:
+      tags:
+        - lancamento-controller
+      summary: adicionar
+      operationId: adicionarUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: lancamentoDto
+          description: lancamentoDto
+          required: true
+          schema:
+            $ref: '#/definitions/LancamentoDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfLancamentoDto'
+  /api/lancamentos/funcionario/{funcionarioId}:
+    get:
+      tags:
+        - lancamento-controller
+      summary: listarPorFuncionarioId
+      operationId: listarPorFuncionarioIdUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: funcionarioId
+          in: path
+          description: funcionarioId
+          required: true
+          type: integer
+          format: int64
+        - name: pag
+          in: query
+          description: pag
+          required: false
+          type: integer
+          default: 0
+          format: int32
+        - name: ord
+          in: query
+          description: ord
+          required: false
+          type: string
+          default: id
+        - name: dir
+          in: query
+          description: dir
+          required: false
+          type: string
+          default: DESC
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfPageOfLancamentoDto'
+  /api/lancamentos/{id}:
+    get:
+      tags:
+        - lancamento-controller
+      summary: listarPorId
+      operationId: listarPorIdUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfLancamentoDto'
+    put:
+      tags:
+        - lancamento-controller
+      summary: atualizar
+      operationId: atualizarUsingPUT_1
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: lancamentoDto
+          description: lancamentoDto
+          required: true
+          schema:
+            $ref: '#/definitions/LancamentoDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfLancamentoDto'
+    delete:
+      tags:
+        - lancamento-controller
+      summary: remover
+      operationId: removerUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseOfstring'
+definitions:
+  OptionalOfstring:
+    type: object
+    properties:
+      empty:
+        type: boolean
+      present:
+        type: boolean
+  EmpresaDto:
+    type: object
+    properties:
+      cnpj:
+        type: string
+      id:
+        type: integer
+        format: int64
+      razaoSocial:
+        type: string
+  ResponseOfEmpresaDto:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/EmpresaDto'
+      errors:
+        type: array
+        items:
+          type: string
+  CadastroPJDto:
+    type: object
+    properties:
+      cnpj:
+        type: string
+      cpf:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+        format: int64
+      nome:
+        type: string
+      razaoSocial:
+        type: string
+      senha:
+        type: string
+  LancamentoDto:
+    type: object
+    properties:
+      data:
+        type: string
+      descricao:
+        type: string
+      funcionarioId:
+        type: integer
+        format: int64
+      id:
+        $ref: '#/definitions/OptionalOflong'
+      localizacao:
+        type: string
+      tipo:
+        type: string
+  OptionalOflong:
+    type: object
+    properties:
+      empty:
+        type: boolean
+      present:
+        type: boolean
+  PageOfLancamentoDto:
+    type: object
+    properties:
+      content:
+        type: array
+        items:
+          $ref: '#/definitions/LancamentoDto'
+      empty:
+        type: boolean
+      first:
+        type: boolean
+      last:
+        type: boolean
+      number:
+        type: integer
+        format: int32
+      numberOfElements:
+        type: integer
+        format: int32
+      pageable:
+        $ref: '#/definitions/Pageable'
+      size:
+        type: integer
+        format: int32
+      sort:
+        $ref: '#/definitions/Sort'
+      totalElements:
+        type: integer
+        format: int64
+      totalPages:
+        type: integer
+        format: int32
+  CadastroPFDto:
+    type: object
+    properties:
+      cnpj:
+        type: string
+      cpf:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+        format: int64
+      nome:
+        type: string
+      qtdHorasAlmoco:
+        $ref: '#/definitions/OptionalOfstring'
+      qtdHorasTrabalhoDia:
+        $ref: '#/definitions/OptionalOfstring'
+      senha:
+        type: string
+      valorHora:
+        $ref: '#/definitions/OptionalOfstring'
+  ResponseOfCadastroPFDto:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/CadastroPFDto'
+      errors:
+        type: array
+        items:
+          type: string
+  Pageable:
+    type: object
+    properties:
+      offset:
+        type: integer
+        format: int64
+      pageNumber:
+        type: integer
+        format: int32
+      pageSize:
+        type: integer
+        format: int32
+      paged:
+        type: boolean
+      sort:
+        $ref: '#/definitions/Sort'
+      unpaged:
+        type: boolean
+  ResponseOfFuncionarioDto:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/FuncionarioDto'
+      errors:
+        type: array
+        items:
+          type: string
+  ResponseOfLancamentoDto:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/LancamentoDto'
+      errors:
+        type: array
+        items:
+          type: string
+  ResponseOfPageOfLancamentoDto:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/PageOfLancamentoDto'
+      errors:
+        type: array
+        items:
+          type: string
+  ResponseOfCadastroPJDto:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/CadastroPJDto'
+      errors:
+        type: array
+        items:
+          type: string
+  Sort:
+    type: object
+    properties:
+      empty:
+        type: boolean
+      sorted:
+        type: boolean
+      unsorted:
+        type: boolean
+  ResponseOfstring:
+    type: object
+    properties:
+      data:
+        type: string
+      errors:
+        type: array
+        items:
+          type: string
+  FuncionarioDto:
+    type: object
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+        format: int64
+      nome:
+        type: string
+      qtdHorasAlmoco:
+        $ref: '#/definitions/OptionalOfstring'
+      qtdHorasTrabalhoDia:
+        $ref: '#/definitions/OptionalOfstring'
+      senha:
+        $ref: '#/definitions/OptionalOfstring'
+      valorHora:
+        $ref: '#/definitions/OptionalOfstring'

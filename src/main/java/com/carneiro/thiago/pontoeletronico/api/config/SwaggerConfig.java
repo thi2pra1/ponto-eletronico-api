@@ -36,9 +36,14 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
+		return new Docket(DocumentationType.SWAGGER_2)
+				.useDefaultResponseMessages(false)
+				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.carneiro.thiago.pontoeletronico.api.controllers"))
-				.paths(PathSelectors.any()).build()
+				.paths(PathSelectors.any())
+				.build()
+				.enableUrlTemplating(false)
+				.forCodeGeneration(true)
 				.apiInfo(apiInfo());
 	}
 
