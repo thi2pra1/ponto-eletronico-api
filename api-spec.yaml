@@ -1,4 +1,4 @@
-openapi: "3.0.3"
+swagger: '2.0'
 info:
   description: Documentação da API de acesso aos endpoints do Ponto Eletronico.
   version: '1.0'
