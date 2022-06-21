@@ -36,4 +36,4 @@ spec:
   owner: team-a
   system: sample-system
   definition:
-    $text: https://github.com/thi2pra1/ponto-eletronico-api/blob/master/api-spec.yaml
+    $text: ./api-spec.yaml
